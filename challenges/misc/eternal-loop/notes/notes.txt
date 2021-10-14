@@ -1,0 +1,4 @@
+fcrackzip -u -b -v -D -p /usr/share/wordlists/rockyou.txt 6969.zip  
+
+-u -> use-unzip for false positive.
+-p -> init-passowrd to select the rockyou.txt file.

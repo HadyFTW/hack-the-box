@@ -1,0 +1,30 @@
+1- First we got a zip file called `misDIRection.zip`.
+
+2- I unzipped it, got a hidden directory called '.secrets'
+
+3- got some subdirs that hold some files inside, and noticed that 
+there are some subdirs that doesn't have files inside them.
+
+4- so, I filtered all the folders that only has files inside them using `find` utility command:
+find . -type d -empty -delete -> Find those dirs, then delete them.
+
+5- I noticed that every dir has files [empty] inside:
+find . -type f | xargs file
+
+6- After some investigation, I thought  we could sort those dirs in order based on their nested files like this:
+Ex: dir `S` has the file that has the number `1` as its own name, so we gonna put the `S` char at the first index
+S**************************** and so on.
+
+7- you can do it manually, but you have to automate those tedious tasks always, so I did this:
+- inside the .secrets directory:
+find . -type f | sort -k 1.5 -n | cut -d "/" -f 2 | xargs | sed 's/ //g'
+
+got this: SFRCe0RJUjNjdEx5XzFuX1BsNDFuX1NpN2V9
+
+8- so, I searched for any hash analyzer online to figure out what type of hash is it, got: base64 [not hash in general].
+
+9- so, I decoded it:
+echo "SFRCe0RJUjNjdEx5XzFuX1BsNDFuX1NpN2V9" | base64 -d and got the flag!
+
+10- Flag: HTB{DIR3ctLy_1n_Pl41n_Si7e}
+
